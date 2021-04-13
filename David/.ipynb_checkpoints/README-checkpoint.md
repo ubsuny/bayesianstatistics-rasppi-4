@@ -18,3 +18,11 @@ UB's average of 0.46% updates your chances to 6.11%.
 Eerie county's average of 1.1% updates your chances to 7.23%.
 
 The notebook can be run for any number of people given any percentage of population has Covid, or any disease. Increasing the pool size to a large number takes your percentage back down to the original average because now the test is no longer able to tell you much about who was the one to cause the result.
+
+## Problem 2
+
+Using the local linear trend and seasonal effect was a bit tricky, but I was able to reproduce the results of the notebook shown. The steps involved taking the $CO_2$ data and using the 3 commands they used to get a model for the data. Then, I needed to look at their repository to get more insight into how theymade the predictions and gave the range of curves as well. Attempting to plot the standard of deviation away from the curve initially was not working as my scales and deviation exploded, but this was until I saw that I needed to train my samples for my prosterior function. This is not specific to the original source because even [the page on exploring the forefasting function uses it.](https://juanitorduz.github.io/intro_sts_tfp/).
+
+Then after this, the last thing I tried to tackle ere deprecation warnings in the training code. My only headway was to change the optimizer to keras, as that the optimizer in the documentation was giving some of the deprecation warning. These warnings persisted though, so this code may not function forever. I do not need to import tensorflow with v2 compatibility though, as both implementations gave the warning.
+
+If I wished to have a notebook give the same results everytime I could theoretically use a seed for my variational posterior and for the training. I also turned the iterations for reducing my loses to only 100, as the diminishing returns for higher iterations were not worth the extra wait times running my code. The year to train past can be altered as well, so I can predict what the a longer period of time. With minor alterations to the code, I could predict the $CO_2$ past the year 2018, but there would be nothing to compare it to to show validity of the method. Eitherway, I am satisfied with this code, I just wish that I could have understood what is still incompatible.
